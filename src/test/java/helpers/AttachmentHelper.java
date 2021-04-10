@@ -28,9 +28,9 @@ public class AttachmentHelper {
     }
 
     @Attachment(value = "Video", type = "text/html", fileExtension = ".html")
-    public static String attachVideo() {
+    public static String attachVideo(String videoStorage) {
         return "<html><body><video width='100%' height='100%' controls autoplay><source src='"
-                + System.getProperty("video_storage") + getSessionId() + ".mp4"
+                + videoStorage + getSessionId() + ".mp4"
                 + "' type='video/mp4'></video></body></html>";
     }
 
