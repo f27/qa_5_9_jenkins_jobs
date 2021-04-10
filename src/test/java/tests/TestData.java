@@ -1,12 +1,15 @@
 package tests;
 
 import com.github.javafaker.Faker;
+import config.DriverConfig;
+import org.aeonbits.owner.ConfigFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class TestData {
-    static Faker faker = new Faker();
+    private static final Faker faker = new Faker();
+    private static final DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class, System.getProperties());
 
     static Date dateOfBirth = faker.date().birthday();
 
@@ -42,7 +45,7 @@ public class TestData {
         put("Address", faker.address().fullAddress());
         put("State", state);
         put("City", city);
-        put("Form Title", "Student Registration Form");
+        put("Form Title", driverConfig.getSecretParameter()); //"Student Registration Form"
         put("Thanks Title", "Thanks for submitting the form");
     }};
 

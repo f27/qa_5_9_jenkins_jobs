@@ -14,19 +14,19 @@ import static com.codeborne.selenide.logevents.SelenideLogger.addListener;
 import static helpers.AttachmentHelper.*;
 
 public class TestBase {
-    private static final DriverConfig config = ConfigFactory.create(DriverConfig.class, System.getProperties());
+    private static final DriverConfig driverConfig = ConfigFactory.create(DriverConfig.class, System.getProperties());
     private static final RemoteDriverConfig remoteDriverConfig = ConfigFactory.create(RemoteDriverConfig.class);
 
     @BeforeAll
     static void setup() {
         addListener("AllureSelenide", new AllureSelenide());
-        Configuration.browser = config.getBrowser();
-        if (config.getRemoteDriver() != null) {
+        Configuration.browser = driverConfig.getBrowser();
+        if (driverConfig.getRemoteDriver() != null) {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability("enableVNC", true);
             capabilities.setCapability("enableVideo", true);
             Configuration.browserCapabilities = capabilities;
-            Configuration.remote = String.format(config.getRemoteDriver(),
+            Configuration.remote = String.format(driverConfig.getRemoteDriver(),
                     remoteDriverConfig.getUser(),
                     remoteDriverConfig.getPassword());
         }
@@ -40,8 +40,8 @@ public class TestBase {
         attachPageSource();
         if (Configuration.browser.equals("chrome"))
             attachAsText("Browser console logs", getConsoleLogs());
-        if (config.getVideoStorage() != null)
-            attachVideo(config.getVideoStorage());
+        if (driverConfig.getVideoStorage() != null)
+            attachVideo(driverConfig.getVideoStorage());
         closeWebDriver();
     }
 }

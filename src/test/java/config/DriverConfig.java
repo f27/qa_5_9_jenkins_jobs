@@ -12,4 +12,7 @@ public interface DriverConfig extends Config {
 
     @Key("video.storage")
     String getVideoStorage();
+
+    @Key("secret.title.for.test")
+    String getSecretParameter();
 }
